@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>С 14 февраля ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 320px;
+      animation: pop 1s ease forwards;
+      transform: scale(0.8);
+      opacity: 0;
+    }
+
+    @keyframes pop {
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid white;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+
+    button {
+      background: #ff4d6d;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #ff3355;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      animation: floatUp 4s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-600px); opacity: 0; }
+    }
+
+    #counter {
+      margin-top: 15px;
+      font-size: 18px;
+    }
+
+    .minute-animate {
+      animation: minutePop 0.6s ease;
+    }
+
+    @keyframes minutePop {
+      0% { transform: scale(1); color: white; }
+      50% { transform: scale(1.15); color: #ffe066; }
+      100% { transform: scale(1); color: white; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <img id="photo" src="photo1.jpg" alt="Моё фото">
+    <h1>С 14 февраля ❤️</h1>
+    <p id="text">бебебебебебе✨</p>
+    <button onclick="love()">Нажми на меня 💘</button>
+    <p id="counter"></p>
+  </div>
+
+  <script>
+    // 💘 сообщения
+    const messages = [
+      "Я тебя люблю 💖",
+      "Ты самое лучшее, что со мной случалось 💕",
+      "Хочу быть рядом всегда ❤️",
+      "Ты мой Valentine 💘"
+    ];
+
+    function love() {
+      document.getElementById("text").textContent =
+        messages[Math.floor(Math.random() * messages.length)];
+
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.textContent = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.bottom = "0px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+      }
+    }
+
+    // ⏳ счётчик времени
+    const startDate = new Date("2025-05-04T12:44:00");
+    let lastMinute = null;
+
+    function updateCounter() {
+      const now = new Date();
+      let diff = now - startDate;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff %= (1000 * 60 * 60 * 24);
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff %= (1000 * 60 * 60);
+
+      const minutes = Math.floor(diff / (1000 * 60));
+      diff %= (1000 * 60);
+
+      const seconds = Math.floor(diff / 1000);
+
+      const counter = document.getElementById("counter");
+      counter.textContent =
+        `Мы вместе уже ${days} дней ${hours}ч ${minutes}м ${seconds}с ❤️`;
+
+      if (minutes !== lastMinute) {
+        counter.classList.remove("minute-animate");
+        void counter.offsetWidth;
+        counter.classList.add("minute-animate");
+        lastMinute = minutes;
+      }
+    }
+
+    updateCounter();
+    setInterval(updateCounter, 1000);
+  </script>
+
+</body>
+</html>
