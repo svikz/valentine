@@ -2,32 +2,45 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>С 14 февраля ❤️</title>
-
   <style>
-    body {
+    /* Сброс и базовые настройки */
+    * {
       margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #ff6b8b, #ff8eb5);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
+      overflow-x: hidden;
+      user-select: none; /* Удобнее на тач-экранах */
+      padding: 16px;
+      position: relative;
     }
 
+    /* Карточка — стеклянная морфность */
     .card {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 36px;
+      padding: 28px 24px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      max-width: 320px;
-      animation: pop 1s ease forwards;
-      transform: scale(0.8);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      animation: pop 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards;
+      transform: scale(0.9);
       opacity: 0;
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     @keyframes pop {
@@ -37,128 +50,249 @@
       }
     }
 
+    /* Фото — адаптивный размер, свечение */
+    .photo-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
     img {
-      width: 200px;
-      height: 200px;
+      width: min(180px, 50vw);
+      height: min(180px, 50vw);
       object-fit: cover;
       border-radius: 50%;
       border: 4px solid white;
-      margin-bottom: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
+      background: #ffb3c6; /* фон, пока грузится / заглушка */
     }
 
+    img:active {
+      transform: scale(0.96);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    h1 {
+      font-size: 2.1rem;
+      margin-bottom: 6px;
+      letter-spacing: 2px;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    #text {
+      font-size: 1.4rem;
+      margin: 16px 0 12px;
+      font-weight: 500;
+      min-height: 3.2rem;
+      word-break: break-word;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Кнопка — крупная, адаптивная, с откликом */
     button {
-      background: #ff4d6d;
+      background: #c9184a;
       border: none;
-      padding: 12px 20px;
-      border-radius: 25px;
+      padding: 16px 20px;
+      border-radius: 60px;
       color: white;
-      font-size: 16px;
+      font-size: 1.4rem;
+      font-weight: 600;
+      width: 100%;
       cursor: pointer;
-      margin-top: 10px;
+      box-shadow: 0 12px 0 #800f2f, 0 10px 25px rgba(193, 24, 74, 0.4);
+      transition: all 0.08s linear;
+      touch-action: manipulation;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      letter-spacing: 2px;
+      margin-top: 8px;
     }
 
-    button:hover {
-      background: #ff3355;
+    button:active {
+      transform: translateY(10px);
+      box-shadow: 0 2px 0 #800f2f, 0 15px 25px rgba(193, 24, 74, 0.5);
     }
 
-    .heart {
-      position: absolute;
-      font-size: 20px;
-      animation: floatUp 4s linear forwards;
-      pointer-events: none;
-    }
-
-    @keyframes floatUp {
-      from { transform: translateY(0); opacity: 1; }
-      to { transform: translateY(-600px); opacity: 0; }
-    }
-
+    /* Счётчик — с красивой анимацией */
     #counter {
-      margin-top: 15px;
-      font-size: 18px;
+      margin-top: 24px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      background: rgba(0, 0, 0, 0.1);
+      padding: 12px 10px;
+      border-radius: 50px;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      word-break: break-word;
     }
 
     .minute-animate {
-      animation: minutePop 0.6s ease;
+      animation: minutePop 0.6s cubic-bezier(0.2, 0.9, 0.4, 1);
     }
 
     @keyframes minutePop {
-      0% { transform: scale(1); color: white; }
-      50% { transform: scale(1.15); color: #ffe066; }
-      100% { transform: scale(1); color: white; }
+      0% { transform: scale(1); background: rgba(0,0,0,0.1); }
+      50% { transform: scale(1.08); background: rgba(255, 230, 102, 0.25); color: #ffe066; }
+      100% { transform: scale(1); background: rgba(0,0,0,0.1); color: white; }
+    }
+
+    /* Летающие сердечки — адаптивные, разные */
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      bottom: 0;
+      animation: floatUp 4.2s ease-out forwards;
+      pointer-events: none;
+      will-change: transform, opacity;
+      text-shadow: 0 0 10px rgba(255, 80, 120, 0.8);
+      z-index: 100;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* Адаптация для совсем маленьких экранов */
+    @media (max-width: 380px) {
+      .card { padding: 20px 16px; }
+      h1 { font-size: 1.8rem; }
+      #text { font-size: 1.2rem; }
+      button { font-size: 1.2rem; padding: 14px; }
     }
   </style>
 </head>
-
 <body>
 
   <div class="card">
-    <img id="photo" src="photo1.jpg" alt="Моё фото">
-    <h1>С 14 февраля ❤️</h1>
+    <!-- Фото: клик тоже вызывает love(), + fallback на SVG-заглушку -->
+    <div class="photo-wrapper">
+      <img 
+        id="photo" 
+        src="photo1.jpg" 
+        alt="Моё фото" 
+        onclick="love()"
+        onerror="handleImageError(this)"
+      >
+    </div>
+    <h1>❤️ С 14 февраля</h1>
     <p id="text">бебебебебебе✨</p>
     <button onclick="love()">Нажми на меня 💘</button>
     <p id="counter"></p>
   </div>
 
   <script>
-    // 💘 сообщения
+    // 💖 Запасной вариант изображения (красивая SVG-заглушка с сердечком)
+    function handleImageError(img) {
+      // Предотвращаем бесконечный цикл
+      img.onerror = null;
+      img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100"%3E%3Ccircle cx="50" cy="50" r="48" fill="%23ff4d6d"/%3E%3Ctext x="50" y="67" font-size="50" text-anchor="middle" fill="white" font-family="Arial, sans-serif" dy="0.3em"%3E❤️%3C/text%3E%3C/svg%3E';
+      img.alt = 'Сердечко (заглушка)';
+    }
+
+    // 💘 Романтичные сообщения
     const messages = [
       "Я тебя люблю 💖",
       "Ты самое лучшее, что со мной случалось 💕",
       "Хочу быть рядом всегда ❤️",
-      "Ты мой Valentine 💘"
+      "Ты мой Valentine 💘",
+      "С тобой каждый день — праздник 🌸",
+      "Ты — причина моей улыбки 😊"
     ];
 
+    // Разные вариации сердечек (эмодзи)
+    const heartVariants = ["❤️", "💖", "💕", "💗", "💓", "💘", "💝", "💞"];
+
     function love() {
+      // Меняем текст на случайное сообщение
       document.getElementById("text").textContent =
         messages[Math.floor(Math.random() * messages.length)];
 
-      for (let i = 0; i < 10; i++) {
+      // Создаём разноцветные сердечки
+      const heartCount = 14; // символично ❤️
+      for (let i = 0; i < heartCount; i++) {
         const heart = document.createElement("div");
         heart.className = "heart";
-        heart.textContent = "❤️";
-        heart.style.left = Math.random() * window.innerWidth + "px";
-        heart.style.bottom = "0px";
+        
+        // Случайный эмодзи-сердечко
+        heart.textContent = heartVariants[Math.floor(Math.random() * heartVariants.length)];
+        
+        // Случайный размер (от 20px до 45px)
+        const size = 20 + Math.floor(Math.random() * 25);
+        heart.style.fontSize = size + "px";
+        
+        // Случайное горизонтальное положение (с учётом ширины экрана)
+        const maxLeft = window.innerWidth - size;
+        heart.style.left = Math.max(10, Math.floor(Math.random() * maxLeft)) + "px";
+        
+        // Разная скорость анимации
+        const duration = 3 + Math.random() * 3;
+        heart.style.animation = `floatUp ${duration}s ease-out forwards`;
+        
+        // Лёгкое смещение старта по вертикали (иногда чуть выше)
+        heart.style.bottom = Math.random() * 30 + "px";
+        
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 4000);
+        
+        // Удаляем сердечко после завершения анимации
+        setTimeout(() => {
+          if (heart.parentNode) heart.remove();
+        }, duration * 1000);
       }
     }
 
-    // ⏳ счётчик времени
-    const startDate = new Date("2025-05-04T12:44:00");
+    // ⏳ Счётчик времени вместе (настрой свою дату!)
+    const startDate = new Date("2025-05-04T12:44:00"); // ✏️ измени при необходимости
     let lastMinute = null;
 
     function updateCounter() {
       const now = new Date();
       let diff = now - startDate;
 
+      if (diff < 0) {
+        document.getElementById("counter").textContent = "💞 Мы ещё не вместе, но скоро! 💞";
+        return;
+      }
+
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       diff %= (1000 * 60 * 60 * 24);
-
       const hours = Math.floor(diff / (1000 * 60 * 60));
       diff %= (1000 * 60 * 60);
-
       const minutes = Math.floor(diff / (1000 * 60));
       diff %= (1000 * 60);
-
       const seconds = Math.floor(diff / 1000);
 
       const counter = document.getElementById("counter");
-      counter.textContent =
-        `Мы вместе уже ${days} дней ${hours}ч ${minutes}м ${seconds}с ❤️`;
+      counter.textContent = `💖 Мы вместе уже ${days} дн ${hours} ч ${minutes} м ${seconds} с 💖`;
 
+      // Эффект при смене минуты
       if (minutes !== lastMinute) {
         counter.classList.remove("minute-animate");
+        // форсированный reflow для перезапуска анимации
         void counter.offsetWidth;
         counter.classList.add("minute-animate");
         lastMinute = minutes;
       }
     }
 
+    // Запускаем счётчик и обновляем каждую секунду
     updateCounter();
     setInterval(updateCounter, 1000);
-  </script>
 
+    // 👇 Дополнительно: обновляем позиционирование сердечек при повороте экрана
+    // (чтобы они не улетали за пределы новой ширины)
+    window.addEventListener('resize', () => {
+      // Необязательно, но можно пересчитать left для будущих сердечек — они генерируются заново при клике
+      // Просто ничего не делаем, т.к. heart создаются динамически с актуальными window.innerWidth
+    });
+  </script>
 </body>
 </html>
